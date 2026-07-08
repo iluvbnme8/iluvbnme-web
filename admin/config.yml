@@ -1,0 +1,81 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "site_content"
+    label: "Site Content"
+    files:
+      - name: "content"
+        label: "Blog and Podcast Content"
+        file: "content.json"
+        format: "json"
+        fields:
+          - label: "Site"
+            name: "site"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Tagline", name: "tagline", widget: "string" }
+              - { label: "Public Site URL", name: "url", widget: "string", hint: "Change this to your final domain before launch." }
+              - { label: "Email", name: "email", widget: "string" }
+              - { label: "Instagram", name: "instagram", widget: "string", required: false }
+              - { label: "TikTok", name: "tiktok", widget: "string", required: false }
+              - { label: "Pinterest", name: "pinterest", widget: "string", required: false }
+          - label: "Posts"
+            name: "posts"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Slug", name: "slug", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Category", name: "category", widget: "string" }
+              - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
+              - { label: "Read Time", name: "readTime", widget: "string" }
+              - { label: "Featured", name: "featured", widget: "boolean", default: false, required: false }
+              - { label: "Cover Image", name: "cover", widget: "image", required: false }
+              - { label: "Excerpt", name: "excerpt", widget: "text" }
+              - label: "Body"
+                name: "body"
+                widget: "list"
+                summary: "{{fields.t}} - {{fields.x}}"
+                fields:
+                  - { label: "Block Type", name: "t", widget: "select", options: ["p", "h2", "quote", "steps"], default: "p" }
+                  - { label: "Text", name: "x", widget: "text", required: false }
+                  - { label: "Steps Intro", name: "intro", widget: "text", required: false }
+                  - label: "Step Items"
+                    name: "items"
+                    widget: "list"
+                    required: false
+                    field: { label: "Step", name: "step", widget: "string" }
+          - label: "Episodes"
+            name: "episodes"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Slug", name: "slug", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
+              - { label: "Duration", name: "duration", widget: "string" }
+              - { label: "Tag", name: "tag", widget: "string" }
+              - { label: "Featured", name: "featured", widget: "boolean", default: false, required: false }
+              - { label: "Cover Image", name: "cover", widget: "image", required: false }
+              - { label: "Audio URL", name: "audioUrl", widget: "string", required: false }
+              - { label: "Spotify URL", name: "spotifyUrl", widget: "string", required: false }
+              - { label: "Apple URL", name: "appleUrl", widget: "string", required: false }
+              - { label: "YouTube URL", name: "youtubeUrl", widget: "string", required: false }
+              - { label: "Description", name: "description", widget: "text" }
+              - label: "Show Notes"
+                name: "showNotes"
+                widget: "list"
+                field: { label: "Note", name: "note", widget: "text" }
+              - label: "Transcript"
+                name: "transcript"
+                widget: "list"
+                summary: "{{fields.t}} - {{fields.x}}"
+                fields:
+                  - { label: "Block Type", name: "t", widget: "select", options: ["cue", "p", "h2", "quote"], default: "p" }
+                  - { label: "Text", name: "x", widget: "text" }
